@@ -47,3 +47,56 @@ object casaDePepeYJulian {
 
 }
 
+object cuentaCorriente {
+
+	var property saldo = 0
+
+	method depositar(importe) {
+		saldo += importe 
+	}
+
+	method extraer(importe) {
+		saldo -= importe 
+	}
+
+}
+
+object cuentaConGastos {
+
+	var property saldo = 0
+
+	method depositar(importe) {
+		saldo += (importe - 200)
+	}
+
+	method extraer(importe) {
+		saldo -= if(importe > 10000)(importe + 200) else (importe + importe*0.2)
+	}
+
+}
+
+object cuentaCombinada {
+
+	const property cuentaPrimaria = cuentaCorriente
+	const property cuentaSecundaria = cuentaConGastos
+	var property saldo = 0
+	
+	method saldo(){
+		saldo = cuentaPrimaria.saldo() + cuentaSecundaria.saldo()
+		return saldo
+	}
+	method depositar(importe) {
+		cuentaPrimaria.depositar(importe)
+	}
+
+	method extraer(importe) {
+		if (cuentaPrimaria.saldo() > importe) {
+			cuentaPrimaria.extraer(importe)
+		} else {
+			cuentaPrimaria.extraer(cuentaPrimaria.saldo())
+			cuentaSecundaria.extraer(importe - cuentaPrimaria.saldo())
+		}
+	}
+
+}
+

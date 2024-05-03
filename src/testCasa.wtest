@@ -1,0 +1,66 @@
+import casa.*
+
+describe "test de la cuenta corriente" {
+	method initialize (){
+		cuentaCorriente.depositar(40000)
+	}
+
+	test "tiene un atributo que es el saldo" {
+		
+		assert.equals(40000, cuentaCorriente.saldo())
+	}
+
+	test " al depositar suma al saldo, ." {
+		cuentaCorriente.depositar(100)
+		assert.equals(40100, cuentaCorriente.saldo())
+	}
+
+	test" al extraer resta" {
+		cuentaCorriente.extraer(100)
+		assert.equals(39900, cuentaCorriente.saldo())
+	}
+
+}
+
+describe "test de cuenta con gastos" {
+	method initialize (){
+		cuentaConGastos.depositar(40000)
+	}
+
+	test "tiene un atributo que es el saldo" {
+		
+		assert.equals(39800, cuentaConGastos.saldo())
+	}
+
+	test " al depositar suma al saldo, ." {
+		cuentaConGastos.depositar(1000)
+		assert.equals(40600, cuentaConGastos.saldo())
+	}
+
+	test" al extraer resta" {
+		cuentaConGastos.extraer(1000)
+		assert.equals(38600, cuentaConGastos.saldo())
+	}
+
+}
+
+describe "test de cuenta combinada"{
+	method initialize (){
+		cuentaCombinada.cuentaPrimaria().depositar(40000)
+		cuentaCombinada.cuentaSecundaria().depositar(2040000)
+	}
+	test "tiene un atributo que es el saldo" {
+		assert.equals(2079800, cuentaCombinada.saldo())
+	}
+
+	test " al depositar suma al saldo, ." {
+		cuentaConGastos.depositar(1000)
+		assert.equals(2080600, cuentaCombinada.saldo())
+	}
+
+	test" al extraer resta" {
+		cuentaConGastos.extraer(1000)
+		assert.equals(2078600, cuentaCombinada.saldo())
+	}
+	
+}
