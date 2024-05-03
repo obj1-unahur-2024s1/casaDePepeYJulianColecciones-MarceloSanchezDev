@@ -3,9 +3,14 @@ import cosas.* //obviamente, vamos a usar los objetos del archivo cosas ;-)
 object casaDePepeYJulian {
 
 	const property cosas = []
-
+	const cuentaBancaria = cuentaCombinada
+	
+	method gastar(importe){
+		cuentaBancaria.extraer(importe)
+	}
 	method comprar(cosa) {
 		cosas.add(cosa)
+		self.gastar(cosa.precio())
 	}
 
 	method cantidadDeCosasCompradas() {
